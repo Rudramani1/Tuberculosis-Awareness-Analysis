@@ -29,4 +29,4 @@ This project is a web application designed to raise awareness about Tuberculosis
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/tuberculosis-analysis.git
+   git clone https://github.com/Rudramani1/tuberculosis-analysis.git
