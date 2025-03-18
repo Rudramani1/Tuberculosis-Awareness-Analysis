@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Tuberculosis Awareness & Analysis</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>.instructions-list {
+        font-family: 'Poppins', sans-serif;
+        padding-left: 20px;
+        counter-reset: instruction-counter;
+      }
+      
+      .instructions-list li {
+        margin-bottom: 10px;
+        font-size: 1rem;
+        line-height: 1.5;
+      }
+      
+      .instructions-list li::marker {
+        font-weight: 600;
+        color: #0287e8; /* adjust color as needed */
+      }
+      </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo"> 🫁 Lung<b style="color: pink;">Care</b></div>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#about">Prevention</a></li>
+                <li><a href="#analysis">Analysis</a></li>
+            </ul>
+        </div>
+    </nav>
+    <header class="hero">
+      <div class="hero-content">
+          <h1>Understanding Tuberculosis (TB)</h1>
+          <p class="hero-subtitle">Early detection saves lives. Learn about prevention and get your X-ray analyzed.</p>
+          <a href="#analysis" class="cta-button">Get Started</a>
+      </div>
+      <div class="hero-overlay"></div>
+  </header>
+  
+  <!-- Main Content -->
+  <main class="content">
+      <section id="about" class="info-section">
+          <h2>What is Tuberculosis (TB)?</h2>
+          <p class="section-intro">Tuberculosis is a contagious infection caused by the bacterium Mycobacterium tuberculosis. It primarily affects the lungs but can also impact other parts of the body. Early detection and treatment are crucial to prevent its spread.</p>
+          
+          <div class="info-grid">
+              <div class="info-card">
+                  <div class="card-icon">⚠️</div>
+                  <h3>Risk Factors</h3>
+                  <ul>
+                      <li>Close contact with someone with active TB</li>
+                      <li>Weakened immune system (e.g., HIV/AIDS)</li>
+                      <li>Living or working in crowded environments</li>
+                      <li>Substance abuse</li>
+                      <li>Traveling to or living in areas with high TB rates</li>
+                  </ul>
+              </div>
+  
+              <div class="info-card">
+                  <div class="card-icon">🛡️</div>
+                  <h3>Prevention</h3>
+                  <ul>
+                      <li>Get vaccinated (BCG vaccine)</li>
+                      <li>Avoid close contact with active TB patients</li>
+                      <li>Maintain good ventilation in living spaces</li>
+                      <li>Practice good hygiene (e.g., covering mouth when coughing)</li>
+                      <li>Seek early treatment if exposed</li>
+                  </ul>
+              </div>
+  
+              <div class="info-card">
+                  <div class="card-icon">🔔</div>
+                  <h3>Warning Signs</h3>
+                  <ul>
+                      <li>Persistent cough lasting more than 3 weeks</li>
+                      <li>Chest pain or pain while breathing</li>
+                      <li>Coughing up blood or sputum</li>
+                      <li>Unexplained weight loss</li>
+                      <li>Fever, chills, and night sweats</li>
+                  </ul>
+              </div>
+          </div>
+      </section>
+  
+      <section id="analysis" class="analysis-section">
+          <h2>X-Ray Analysis</h2>
+          <h1 class="section-intro">
+              Early detection is crucial for successful treatment. Our AI-powered tool can help analyze your chest X-ray images for signs of TB.
+          </h1>
+          <h3 style="padding-bottom: 20px; font-size: 25px; padding-left: 20px;">Instructions :- </h3>
+          <ol class="instructions-list">
+              <li>💥 Point the camera only at the chest X-ray.</li>
+              <li>💥 Ensure the entire X-ray image is captured.</li>
+              <li>💥 Make sure the X-ray is in focus and clear.</li>
+              <li>💥 Avoid zooming in or cropping out parts of the X-ray.</li>
+          </ol>
+      </section>
+  </main>
+
+            
+            <button id="showAnalysisBtn" class="analyze-btn" style="margin-bottom: 80px; margin-top: 50px;">Start Analysis</button>
+          
+            <div id="analysisTools" class="hidden">
+              <div class="analysis-options">
+                <button onclick="initWebcam()" class="option-btn">Use Webcam</button>
+                <button onclick="stopWebcam()" class="option-btn">Stop Webcam</button>
+                
+
+              </div>
+              <div class="analysis-options">
+              <button onclick="stopWebcam()" class="option-btn">Import file: <input type="file" id="fileInput" accept="image/*" "> </button></div>
+          
+              <div class="tool-container">
+                <div id="webcam-section" class="hidden">
+                  <h3>Webcam Analysis</h3>
+                  <div id="webcam-container" class="webcam-container"></div>
+                </div>
+          
+                <div class="upload-section">
+                  <!-- Make the entire upload area clickable -->
+                  <div class="upload-area" id="uploadArea">
+                    <input type="file" id="fileInput" accept="image/*" class="file-input">
+                    <div class="upload-content">
+                      <div class="upload-icon">📁</div>
+                      <p>Drag & drop your CT scan or click to browse</p>
+                    </div>
+                  </div>
+                  <div class="preview-container">
+                    <img id="previewImage" class="hidden">
+                  </div>
+                  <button onclick="analyzeUpload()" class="analyze-btn">Analyze Image</button>
+                </div>
+          
+                <div id="results-section" class="hidden">
+                  <h3>Analysis Results</h3>
+                  <div id="label-container" class="results-grid"></div>
+                  <div id="recommendations" class="recommendations-container"></div>
+                </div>
+              </div>
+            </div>
+          </section>
+          
+          <script>
+            // When the user clicks anywhere in the upload area, trigger the hidden file input
+            document.getElementById('uploadArea').addEventListener('click', function() {
+              document.getElementById('fileInput').click();
+            });
+          </script>
+          
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Important Notice</h4>
+                <p>This tool is for educational purposes only and should not replace professional medical advice.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Emergency</h4>
+                <p>If you're experiencing severe symptoms, please contact emergency services immediately.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
